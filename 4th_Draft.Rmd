@@ -1,0 +1,52 @@
+---
+title: "Fourth Draft of Final Project"
+output: Variable Reduction and High Value Variables, Preliminary Reduction, Dimensionality & Variable Reduction, High Value Variables.
+---
+
+Import the libraries and Load the data from the excel to the dataset 'dat'
+
+```{r}
+data_ref <- read.csv('USvideos.csv',header = TRUE,sep = ",", quote = "\"",
+         dec = ".", fill = TRUE, comment.char = "")
+dat<- data.frame(data_ref)
+summary(dat)
+```
+
+```{r}
+library(corrplot)
+dat1<- data.frame(dat)
+corr_data<- data.frame(dat1$category_id,dat1$views,dat1$likes,dat1$dislikes,dat1$comment_count)
+corr_data1<-cor(corr_data)
+corrplot(corr_data1,method = "number")
+```
+
+Variable reduction Step 0:
+```{r}
+dat1<- data.frame(dat)
+str(dat1)
+
+library(dummies)
+dat2<- data.frame(dat)
+pca_data <- data.frame(dat2,names = c("video_id","trending_date","title","channel_title","publish_time","tags","thumbnail_link","comments_disabled","ratings_disabled","video_error_or_removed","description"))
+
+dat1[c("category_id","views","likes","dislikes","comment_count")] <- 
+    lapply( dat1[c("category_id","views","likes","dislikes","comment_count")], 
+            function(x) { as.integer(gsub(',', '', x) )})
+str(dat1)
+#pca_data <- prcomp(dat1, scale. = TRUE)
+
+pca_data <- data.frame(dat1$category_id,dat1$views,dat1$likes,dat1$dislikes,dat1$comment_count)
+pca_data <- data.frame(dat1$category_id,dat1$views,dat1$likes,dat1$dislikes,dat1$comment_count)
+data.pca <- prcomp(pca_data,scale. = TRUE)
+summary(data.pca)
+screeplot(data.pca, type="lines",col=3)
+biplot(data.pca,cex=0.8)
+plot(data.pca)
+dim(data.pca$x)
+data.pca$scale
+data.pca$rotation
+data.pca$center
+
+```
+
+

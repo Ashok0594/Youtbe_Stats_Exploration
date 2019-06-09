@@ -1,0 +1,18 @@
+---
+title: "YouTube Data Analytics"
+output: Time series prediction of the videos
+---
+
+# LOAD THE DATA FROM THE .csv FILES 
+------------------------------------------------------------------------------------------------------------------------------------------
+Load the data for the country USA from the CSV. 
+
+```{r}
+data_ref_USA <- read.csv('USvideos.csv',header = TRUE,sep = ",", quote = "\"",
+         dec = ".", fill = TRUE, comment.char = "")
+dat_USA<- data.frame(data_ref_USA)
+str(dat_USA)
+```
+
+# CLEANSE THE DATA
+------------------------------------------------------------------------------------------------------------------------------------------
